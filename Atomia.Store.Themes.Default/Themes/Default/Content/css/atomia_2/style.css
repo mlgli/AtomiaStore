@@ -3367,24 +3367,11 @@ and (min-width : 2000px) {
 
 /*\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\*/
 
+#store_cloud_01 {
+	background: #f1f1ec url(../../img/atomia_2/clouds_mountain.jpg) center -1em;
+	background-size: cover
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.store_banner {
+	height: 8rem;
+}

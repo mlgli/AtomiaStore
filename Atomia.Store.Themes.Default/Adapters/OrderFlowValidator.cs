@@ -21,7 +21,7 @@ namespace Atomia.Store.Themes.Default.Adapters
         /// </summary>
         public IEnumerable<string> ValidateOrderFlowStep(AspNetMvc.Infrastructure.OrderFlow orderFlow, AspNetMvc.Infrastructure.OrderFlowStep currentOrderFlowStep)
         {
-            if (currentOrderFlowStep.Name == "Account")
+            if (currentOrderFlowStep.Name == "Account" && currentOrderFlowStep.StepNumber > 1)
             {
                 ValidateCart();
             }

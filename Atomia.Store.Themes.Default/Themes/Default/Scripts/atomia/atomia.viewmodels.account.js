@@ -3,8 +3,15 @@ var Atomia = Atomia || {};
 Atomia.ViewModels = Atomia.ViewModels || {};
 /* jshint +W079 */
 
-(function (exports, _, ko, utils) {
-	'use strict';
+(function (exports, _, ko, utils, viewModelsApi) {
+    'use strict';
+
+    function DnsPackageItem(itemData, cart) {
+        var self = this;
+
+        _.extend(self, new viewModelsApi.ProductMixin(itemData, cart));
+        viewModelsApi.addCartItemExtensions(cart, self);
+    }
 
     /** Create a Knockout view model for coordinating main and billing contact data. */
     function AccountModel() {
@@ -18,6 +25,14 @@ Atomia.ViewModels = Atomia.ViewModels || {};
         self.customFields = ko.observableArray();
         self.modelFields = {};
         self.existingArticleNumbersForFields = [];
+
+        self.dnsPackageItem = null;
+        /** Set dns package item data generated on server. */
+        self.createDnsPackageItem = function createDnsPackageItem(response, cart) {
+            if (response.status === 'success') {
+                self.dnsPackageItem = new DnsPackageItem(response.data.Item, cart);
+            }
+        };
 
         self.mainContactIsCompany = ko.pureComputed(function () {
             return self.mainContactCustomerType() === 'company';
@@ -94,4 +109,4 @@ Atomia.ViewModels = Atomia.ViewModels || {};
 	    AccountModel: AccountModel
 	});
 
-})(Atomia.ViewModels, _, ko, Atomia.Utils);
+})(Atomia.ViewModels, _, ko, Atomia.Utils, Atomia.ViewModels);

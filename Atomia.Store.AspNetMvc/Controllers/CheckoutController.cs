@@ -90,6 +90,13 @@ namespace Atomia.Store.AspNetMvc.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public ActionResult CheckoutAccount()
+        {
+            var model = DependencyResolver.Current.GetService<CheckoutViewModel>();
+            return Index(model);
+        }
+
         /// <summary>
         /// Successful payment page.
         /// </summary>
