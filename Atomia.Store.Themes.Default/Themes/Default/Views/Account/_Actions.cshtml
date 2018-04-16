@@ -2,9 +2,13 @@
 @{
     var orderFlow = (OrderFlowModel)ViewBag.OrderFlow;
     var routeValues = orderFlow.IsQueryStringBased ? new { flow = orderFlow.Name } : null;
+    var submitString = string.IsNullOrEmpty(orderFlow.CurrentStep.Next) ? Html.CommonResource("Create") : Html.CommonResource("Next");
 }
 
 <p class="actions" style="display: block;">
-    @Html.RouteLink(Html.CommonResource("Back"), orderFlow.CurrentStep.Previous, routeValues, new { id = "back_step", @class = "button large", style = "display: inline-block;" })
-    <button type="submit" class="button green" style="vertical-align:top;">@Html.CommonResource("Next")</button>
+    @if (!string.IsNullOrEmpty(orderFlow.CurrentStep.Previous))
+    {
+        @Html.RouteLink(Html.CommonResource("Back"), orderFlow.CurrentStep.Previous, routeValues, new { id = "back_step", @class = "button large", style = "display: inline-block;" })
+    }
+    <button type="submit" class="button green" style="vertical-align: top;">@submitString</button>
 </p>

@@ -1,7 +1,9 @@
-﻿using Atomia.Store.AspNetMvc.Models;
+﻿using System.Linq;
+using Atomia.Store.AspNetMvc.Models;
 using Atomia.Store.Core;
 using System.Web.Mvc;
 using Atomia.Store.AspNetMvc.Filters;
+using Atomia.Store.AspNetMvc.Helpers;
 
 namespace Atomia.Store.AspNetMvc.Controllers
 {
@@ -27,6 +29,13 @@ namespace Atomia.Store.AspNetMvc.Controllers
                 model.SetContactData(previousContactData);
             }
 
+            var orderFlow = (OrderFlowModel)ViewBag.OrderFlow;
+            if (orderFlow.Steps.Count() == 1)
+            {
+                // first step, mark that DNS package should be added.
+                ViewBag.AddDnsPackage = ConfigurationHelper.GetDnsPackageArticleNumber();
+            }
+
             return View(model);
         }
 
@@ -41,8 +50,16 @@ namespace Atomia.Store.AspNetMvc.Controllers
             if (ModelState.IsValid)
             {
                 contactDataProvider.SaveContactData(model);
-                
-                return RedirectToAction("Index", "Checkout");
+                var orderFlow = (OrderFlowModel)ViewBag.OrderFlow;
+                var routeValues = orderFlow.IsQueryStringBased ? new { flow = orderFlow.Name } : null;
+
+                if (orderFlow.Steps.Count() == orderFlow.CurrentStep.StepNumber)
+                {
+                    // last step, do the checkout.
+                    return RedirectToAction("CheckoutAccount", "Checkout", routeValues);
+                }
+
+                return RedirectToAction("Index", "Checkout", routeValues);
             }
 
             return View(model);

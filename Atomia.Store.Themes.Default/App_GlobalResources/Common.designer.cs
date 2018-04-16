@@ -378,6 +378,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create your Atomia cloud account.
+        /// </summary>
+        internal static string CloudSignupTitle {
+            get {
+                return ResourceManager.GetString("CloudSignupTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Company.
         /// </summary>
         internal static string Company {
@@ -455,6 +464,15 @@ namespace Resources {
         internal static string Country {
             get {
                 return ResourceManager.GetString("Country", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create.
+        /// </summary>
+        internal static string Create {
+            get {
+                return ResourceManager.GetString("Create", resourceCulture);
             }
         }
         

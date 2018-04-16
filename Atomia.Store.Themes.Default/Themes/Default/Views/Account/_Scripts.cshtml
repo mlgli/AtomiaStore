@@ -40,6 +40,8 @@
     }
 
     fields = fields.TrimEnd(',') + "}";
+
+    var dnsItem = (string) ViewBag.AddDnsPackage;
 }
 
 <script type="text/javascript">
@@ -71,4 +73,17 @@
     $.extend(Atomia.URLS, {
         getApplicableCustomFields: '@Url.Action("GetApplicableCustomFields", new { controller = "Validation", area = "Validation" })'
     });
+
+@if (!string.IsNullOrEmpty(dnsItem))
+{
+    <text>
+    $(document).ready(function() {
+        Atomia.VM.account.createDnsPackageItem(@Html.JsonAction("GetItem", "ProductListing", new {articleNumber = dnsItem}), Atomia.VM.cart);
+        if (Atomia.VM.account.dnsPackageItem !== null) {
+            Atomia.VM.cart.add(Atomia.VM.account.dnsPackageItem);
+        }
+    });
+    </text>
+    //Atomia.VM.cart.add(@Html.JsonAction("GetItem", "ProductListing", new { articleNumber = dnsItem }));
+}
 </script>

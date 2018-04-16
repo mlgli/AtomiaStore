@@ -1,15 +1,18 @@
-﻿@model Atomia.Store.AspNetMvc.Models.DefaultAccountViewModel
+﻿@using Atomia.Store.AspNetMvc.Models
+@model Atomia.Store.AspNetMvc.Models.DefaultAccountViewModel
 
 @{
     Layout = "~/Themes/Default/Views/_OrderFlowLayout.cshtml";
+    var orderFlow = (OrderFlowModel)ViewBag.OrderFlow;
+    var routeValues = orderFlow.IsQueryStringBased ? new { flow = orderFlow.Name } : null;
 }
 
 <div class="settingsboxinner">
 
-    @using (Html.BeginForm("Index", "Account", FormMethod.Post, new { id = "Account_Form" }))
-    {
+    <form action="@this.Url.Action("Index", routeValues)" id="Account_Form" method="post" novalidate="novalidate">
+    @{
         Html.RenderPartial("_ValidationSummary", ViewData.ModelState);
-        
+
         @Html.AntiForgeryToken();
 
         Html.RenderPartial(Model.MainContact.PartialViewName, Model.MainContact, new ViewDataDictionary
@@ -37,7 +40,7 @@
 
         Html.RenderPartial("_Actions", Model);
     }
-
+    </form>
 </div>
 
 @section scripts {

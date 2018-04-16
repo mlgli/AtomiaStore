@@ -279,6 +279,7 @@
     </Content>
     <Content Include="Themes\Default\Content\img\atomia_2\atomia_logo_pink.svg" />
     <Content Include="Themes\Default\Content\img\atomia_2\atomia_logo_white.svg" />
+    <Content Include="Themes\Default\Content\img\atomia_2\clouds_mountain.jpg" />
     <Content Include="Themes\Default\Content\img\atomia_2\mail.svg" />
     <Content Include="Themes\Default\Scripts\atomia\atomia.api.checkout.js" />
     <Content Include="Themes\Default\Scripts\atomia\atomia.ko.validatecustomfield.js" />

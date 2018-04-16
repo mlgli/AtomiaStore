@@ -1,7 +1,10 @@
-﻿@{
+﻿@using Atomia.Store.AspNetMvc.Models
+@{
     Layout = null;
-    ViewBag.Title = Html.CommonResource("OrderPageTitle");
     string bodyClass = "";
+    var orderFlow = (OrderFlowModel)ViewBag.OrderFlow;
+    var multipleSteps = orderFlow.Steps.Count() > 1;
+    ViewBag.Title = orderFlow.Name == "CloudSignup" ? Html.CommonResource("CloudSignupTitle") : Html.CommonResource("OrderPageTitle");
 }
 
 <!DOCTYPE html>
@@ -23,7 +26,12 @@
             <ul class="addons">
                 <li><a id="language_selector_trigger" class="submenu" href="javascript:void(0);" data-bind="click: languageSelector.toggleModal, text: languageSelector.selectedLanguage().shortName"></a></li>
                 <li><a id="currency_selector_trigger" class="submenu" href="javascript:void(0);" data-bind="click: currencySelector.toggleModal, text: currencySelector.selectedCurrency().code"></a></li>
+                @if (multipleSteps)
+                {
+                    <text>
                 <li><a id="head_cart_trigger" class="icn_cart" href="javascript:void(0);" data-bind="click: cart.toggleModal"><span class="empty" data-bind="text: cart.numberOfItems"></span></a></li>
+                    </text>
+                }
             </ul>
         </div>
 
@@ -31,12 +39,28 @@
 
         @Html.Partial("_CurrencySelector")
 
-        @Html.Partial("_Cart")
-
+        @if (multipleSteps)
+        {
+            <text>
+                @Html.Partial("_Cart")
+            </text>
+        }
     </header>
 
-    @Html.Partial("_Progress")
-    
+    @if (multipleSteps)
+    {
+        <text>
+        @Html.Partial("_Progress")
+        </text>
+    }
+
+    @if (orderFlow.Name == "CloudSignup")
+    {
+        <text>
+        <div id="store_cloud_01" class="store_banner"><div class="margins"></div></div>
+        </text>
+    }
+
     <section id="main">
         <div class="margins">
             <div id="homecontent">

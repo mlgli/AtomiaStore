@@ -731,4 +731,10 @@
   <data name="WarningTitle_HostingPackageMissing" xml:space="preserve">
     <value>Hosting package missing</value>
   </data>
+  <data name="CloudSignupTitle" xml:space="preserve">
+    <value>Create your Atomia cloud account</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
 </root>
